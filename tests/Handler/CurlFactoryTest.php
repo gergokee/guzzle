@@ -194,7 +194,11 @@ class CurlFactoryTest extends TestCase
         if ($assertUseProxy) {
             self::assertArrayHasKey(\CURLOPT_PROXY, $_SERVER['_curl']);
         } else {
-            self::assertArrayNotHasKey(\CURLOPT_PROXY, $_SERVER['_curl']) || self::assertEquals('', $_SERVER['_curl'][\CURLOPT_PROXY]);
+            if (isset($_SERVER['_curl'][\CURLOPT_PROXY])) {
+                self::assertEquals('', $_SERVER['_curl'][\CURLOPT_PROXY]);
+            } else {
+                self::assertArrayNotHasKey(\CURLOPT_PROXY, $_SERVER['_curl']);
+            }
         }
     }
 
