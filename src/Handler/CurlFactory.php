@@ -453,6 +453,8 @@ class CurlFactory implements CurlFactoryInterface
                         } elseif (empty($options['proxy']['no'])) {
                             $conf[\CURLOPT_PROXY] = $options['proxy'][$scheme];
                             $conf[\CURLOPT_NOPROXY] = '';
+                        } else {
+                            $conf[\CURLOPT_PROXY] = $options['proxy'][$scheme];
                         }
                     } else {
                         $conf[\CURLOPT_PROXY] = $options['proxy'][$scheme];
