@@ -176,7 +176,7 @@ class CurlFactoryTest extends TestCase
         self::assertEquals('http://bar.com', $_SERVER['_curl'][\CURLOPT_PROXY]);
         $this->checkNoProxyForHost('http://test.test.com', ['test.test.com'], false);
         $this->checkNoProxyForHost('http://test.test.com', ['.test.com'], false);
-        $this->checkNoProxyForHost('http://test.test.com', ['*.test.com'], true);
+        $this->checkNoProxyForHost('http://test.test.com', ['*.test.com'], false);
         $this->checkNoProxyForHost('http://test.test.com', ['*'], false);
         $this->checkNoProxyForHost('http://127.0.0.1', ['127.0.0.*'], true);
     }
@@ -195,6 +195,7 @@ class CurlFactoryTest extends TestCase
             self::assertArrayHasKey(\CURLOPT_PROXY, $_SERVER['_curl']);
         } else {
             if (isset($_SERVER['_curl'][\CURLOPT_PROXY])) {
+                // To support older versions of php we have an empty string
                 self::assertEquals('', $_SERVER['_curl'][\CURLOPT_PROXY]);
             } else {
                 self::assertArrayNotHasKey(\CURLOPT_PROXY, $_SERVER['_curl']);
